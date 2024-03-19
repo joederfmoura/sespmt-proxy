@@ -1,0 +1,9 @@
+embed-server --server-config=standalone-ha.xml
+
+if (outcome == success) of /subsystem=datasources/data-source=SespmtDS/:read-resource
+    /subsystem=datasources/data-source=SespmtDS/:remove
+end-if
+
+/subsystem=datasources/data-source=SespmtDS: add(jndi-name=java:jboss/datasources/SespmtDS,enabled=true,use-java-context=true,use-ccm=true, connection-url=jdbc:postgresql://db-apps/sespmt, user-name=postgres, password=postgres, driver-name=postgresql)
+
+stop-embedded-server

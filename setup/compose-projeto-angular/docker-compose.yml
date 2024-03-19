@@ -1,0 +1,95 @@
+# Docker Compose Ambiente Integração - Google Cloud
+version: "3.1"
+
+services:
+  registro-geral-backend:
+    image: fabricadesoftwareifmt.com.br/registry/sesp-mt/registro-geral:develop
+    container_name: registro-geral-backend
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    networks:
+      - webproxy
+
+
+  carteira-funcional-backend:
+    image: fabricadesoftwareifmt.com.br/registry/sesp-mt/carteira-funcional:develop
+    container_name: carteira-funcional-backend
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - registro-geral-backend    
+    restart: always
+    networks:
+      - webproxy
+
+
+  gerenciamento-ocorrencia-backend:
+    image: fabricadesoftwareifmt.com.br/registry/sesp-mt/gerenciamento-ocorrencia:develop
+    container_name: gerenciamento-ocorrencia-backend
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - carteira-funcional-backend        
+    restart: always
+    networks:
+      - webproxy
+
+
+  gerenciamento-patrulha-backend:
+    image: fabricadesoftwareifmt.com.br/registry/sesp-mt/gerenciamento-patrulha:develop
+    container_name: gerenciamento-patrulha-backend
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - gerenciamento-ocorrencia-backend     
+    restart: always
+    networks:
+      - webproxy
+
+  gerenciamento-procurado-backend:
+    image: fabricadesoftwareifmt.com.br/registry/sesp-mt/gerenciamento-procurado:develop
+    container_name: gerenciamento-procurado-backend
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - gerenciamento-patrulha-backend      
+    restart: always
+    networks:
+      - webproxy
+
+
+  gerenciamento-roubo-web-frontend:
+    image: fabricadesoftwareifmt.com.br/registry/sesp-mt/gerenciamento-roubo-web:hmg
+    container_name: gerenciamento-roubo-web-frontend
+    environment:
+      TZ: America/Sao_Paulo
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - gerenciamento-procurado-backend 
+      - gerenciamento-patrulha-backend         
+    ports:
+      - 8080:8080
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+    restart: always
+    networks:
+      - webproxy
+
+networks:
+  webproxy:
+    driver: bridge

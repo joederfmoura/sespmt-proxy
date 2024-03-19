@@ -1,0 +1,84 @@
+global:
+  scrape_interval:     13s 
+  evaluation_interval: 12s 
+
+rule_files:
+  - alerts.yml
+
+scrape_configs:
+  - job_name: 'prometheus-docker'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'rabbitmq'
+#    metrics_path: '/metrics'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['rabbitmq:15692']
+  
+  - job_name: 'carteira-funcional'
+    metrics_path: '/v0-7/carteira-funcional/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['carteira-funcional:8080']
+    basic_auth:
+      username: 'actuator'
+      password: 'actuator123'
+  
+    
+  - job_name: 'gerenciamento-ocorrencia'
+    metrics_path: '/v0-7/gerenciamento-ocorrencia/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['gerenciamento-ocorrencia:8080']
+    basic_auth:
+      username: 'actuator'
+      password: 'actuator123'
+
+        
+  - job_name: 'gerenciamento-patrulha'
+    metrics_path: '/v0-7/gerenciamento-patrulha/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['gerenciamento-patrulha:8080']
+    basic_auth:
+      username: 'actuator'
+      password: 'actuator123'
+
+
+        
+  - job_name: 'gerenciamento-procurado'
+    metrics_path: '/v0-7/gerenciamento-procurado/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['gerenciamento-procurado:8080']
+    basic_auth:
+      username: 'actuator'
+      password: 'actuator123'
+
+
+        
+  - job_name: 'registro-geral'
+    metrics_path: '/v0-7/registro-geral/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['registro-geral:8080']
+    basic_auth:
+      username: 'actuator'
+      password: 'actuator123'
+  
+  - job_name: 'autenticacao'
+    metrics_path: '/v0-7/autenticacao/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['autenticacao:8080']
+    basic_auth:
+      username: 'actuator'
+      password: 'actuator123'
+
+alerting:
+  alertmanagers:
+#    - scheme: http
+#      path_prefix: /
+     - static_configs:
+       - targets: ['alertmanager:9093']

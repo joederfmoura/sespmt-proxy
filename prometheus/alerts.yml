@@ -1,0 +1,92 @@
+groups:
+  - name: RabbitMQAlerts
+    rules:
+      - alert: InstanceDown
+        expr: up{job="rabbitmq"} < 1
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: Não há instância do RabbitMQ ativa
+      - alert: RabbitmqNodeDown
+        expr: sum(rabbitmq_build_info) < 3
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Nó do Rabbitmq caiu
+          description: Há menos de 3 nós do cluster RabbitMQ
+      - alert: RabbitmqInstancesDifferentVersions
+        expr: count(count(rabbitmq_build_info) by (rabbitmq_version)) > 1
+        for: 1h
+        labels:
+          severity: warning
+        annotations:
+          summary: Diferença na versão das instâncias do Rabbitmq
+          description: Executar diferentes versões do RabbitMQ no mesmo cluster pode ocasionar em falha.
+      - alert: RabbitmqMemoryHigh
+        expr: rabbitmq_process_resident_memory_bytes / rabbitmq_resident_memory_limit_bytes * 100 > 90
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Rabbitmq está ocupando muita memória
+          description: Um nó está utilizando mais de 90% da memória RAM disponibilizada
+      - alert: RabbitmqFileDescriptorsUsage
+        expr: rabbitmq_process_open_fds / rabbitmq_process_max_fds * 100 > 90
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Uso exarcebado de file descriptors
+          description: Um nó está utilizando mais de 90% dos file descriptors
+      - alert: RabbitmqTooMuchUnack
+        expr: sum(rabbitmq_queue_messages_unacked) BY (queue) > 1000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: Muitas mensagens sem confirmação
+          description: Muitas mensagens sem confirmação
+      - alert: RabbitmqTooMuchConnections
+        expr: rabbitmq_connections > 1000
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Muitas conexões abertas
+          description: O total de conexões de um nó está muito alto
+      - alert: RabbitmqNoQueueConsumer
+        expr: rabbitmq_queue_consumers < 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: Há filas sem consumidor
+          description: A fila não possui consumidores
+      - alert: RabbitmqUnroutableMessages
+        expr: increase(rabbitmq_channel_messages_unroutable_returned_total[1m]) > 0 or increase(rabbitmq_channel_messages_unroutable_dropped_total[1m]) > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Há mensagens sem destino no RabbitMQ
+          description: Uma fila possui mensagens que não estão sendo roteadas
+  - name: JVMAlerts  
+    rules:      
+      - alert: JvmMemoryFillingUp
+        expr: (sum by (instance)(jvm_memory_used_bytes{area="heap"}) / sum by (instance)(jvm_memory_max_bytes{area="heap"})) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: A instância está com a memória quase se esgotando
+          description: Memória da JVM está esgotando (> 80%)
+      - alert: instance-down
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: yellow
+        annotations:
+          summary: Instancia está inativa
+          description: "A instância está inativa há mais de 30 segundos"

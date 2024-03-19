@@ -1,0 +1,13 @@
+notifiers:
+  - name: email
+    type: email
+    uid: notifier1
+    org_id: 1
+    org_name: sespmt
+    is_default: true
+    send_reminder: true
+    frequency: 1h
+    disable_resolve_message: false
+    settings:
+      singleEmail: false
+      addresses: admin@grafana.localhost
