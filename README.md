@@ -58,14 +58,10 @@ Ao inicializar os containers utilizando este `docker-compose.yml` cada serviço 
 
 | Nome do container        | Descrição                             | Porta |Endereço|
 | ------------------------ | ------------------------------------- | ----- |----|
+| Traefik Dashboard        | Traefik Proxy Reverso                 | 8080  |https://monitor.localhost|
 | ldap-admin               | Painel de Administração do LDAP       | 3390  |https://ldap-admin.localhost|
 | db-keycloak              | Banco de dados PostgreSQL do Keycloak | 35432 |https://alertmanager.localhost|
-| keycloak                 | Servidor de identificação             | 38080 |https://<host>.localhost|
-| autenticacao             | Serviço de Autenticação do Keycloak   | 8000  ||
-| carteira-funcional       | Carteira Funcional                    | 8001  ||
-| gerenciamento-ocorrencia | Gerenciamento de Ocorrências          | 8002  ||
-| gerenciamento-patrulha   | Gerenciamento de Patrulhas            | 8003  ||
-| gerenciamento-procurado  | Gerenciamento de Procurados           | 8004  ||
-| registro-geral           | Registro Geral                        | 8005  ||
-| gerenciamento-roubo-web  | Protótipo funcional angular           | 8006  |https://<host>.localhost|
+| grafana                  | Plataforma de métricas em gráficos    | 3000  |https://grafana.localhost|
+| promethues               | Ferramenta de Monitoramento           | 9090  |https://prometheus.localhost|
+| gerenciamento-roubo-web  | Protótipo funcional angular           | 8006  |https://gerenciamento-roubo.localhost|
 
