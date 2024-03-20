@@ -50,6 +50,40 @@ watch = true  # Habilita a monitoração automática de contêineres Docker
 network = "sesp-microsservicos"  # Rede Docker onde os contêineres estão conectados
 ```
 
+O código abaixo foi adicionado ao arquivo setup/docker-compose-tools.yml
+
+```bash
+
+ proxy:
+    image: traefik:1.7.2-alpine
+    container_name: proxy
+    volumes:
+      - $PWD/traefik/traefik.toml:/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "traefik.frontend.rule=Host:monitor.localhost"
+      - "traefik.docker.network=sesp-microsservicos"
+      - "traefik.port=8080"
+    networks:
+      - sesp-microsservicos
+
+ ```
+
+O código abaixo foi adicionado ao arquivo setup/docker-compose-tools.yml em cada container que receberá acesso através do proxy.
+
+```bash
+
+    labels:
+      - "traefik.frontend.rule=Host:<endereco>.localhost"
+      - "traefik.docker.network=sesp-microsservicos"
+      - "traefik.port=8080"
+
+```
+
+
 
 
 ## Endereços
