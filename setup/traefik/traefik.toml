@@ -1,21 +1,29 @@
+# Define os pontos de entrada padrão como HTTP e HTTPS
 defaultEntryPoints = ["http", "https"]
 
+# Configura os pontos de entrada
 [entryPoints]
+  # Ponto de entrada para o painel de controle (dashboard)
   [entryPoints.dashboard]
-    address = ":8080"
+    address = ":8080"  # Porta para acessar o painel de controle
+    # Configura autenticação básica para o painel de controle
     [entryPoints.dashboard.auth]
       [entryPoints.dashboard.auth.basic]
-        users = ["admin:$apr1$Oj6kVYUo$IoGdDt1iQCZjinYrZlhpa."]
+        users = ["admin:$apr1$Oj6kVYUo$IoGdDt1iQCZjinYrZlhpa."]  # Usuário e senha para autenticação
+  # Ponto de entrada HTTP padrão
   [entryPoints.http]
-    address = ":80"
+    address = ":80"  # Porta padrão para HTTP
+  # Ponto de entrada HTTPS padrão
   [entryPoints.https]
-    address = ":443"
-      [entryPoints.https.tls]
+    address = ":443"  # Porta padrão para HTTPS
+    [entryPoints.https.tls]  # Configuração TLS para HTTPS
 
+# Configuração da API do Traefik
 [api]
-entrypoint="dashboard"
+entrypoint="dashboard"  # Define o ponto de entrada para acessar a API como o painel de controle
 
+# Configuração para monitoramento de contêineres Docker
 [docker]
-domain = "localhost"
-watch = true
-network = "sesp-microsservicos"
+domain = "localhost"  # Domínio para os contêineres Docker
+watch = true  # Habilita a monitoração automática de contêineres Docker
+network = "sesp-microsservicos"  # Rede Docker onde os contêineres estão conectados
