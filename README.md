@@ -1,4 +1,4 @@
-# sespmt-proxy
+Este repositório é dedicado à apresentação do trabalho da diciplina de Arquitetura de Microsserviços e Containers, focado na integração da ferramenta Traefik com o projeto IFMT CBA SESPMT. Este espaço foi criado com o objetivo de fornecer uma visão abrangente e prática sobre a implementação de microsserviços em um ambiente baseado em containers, destacando a importância do Traefik como ferramenta de gerenciamento de tráfego e roteamento.
 
 # Integrando um proxy reverso traefik no projeto sesp-mt
 
