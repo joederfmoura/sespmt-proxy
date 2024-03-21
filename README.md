@@ -4,6 +4,8 @@ Este repositório é dedicado à apresentação do trabalho da diciplina de Arqu
 
 ## O que é Traefik?
 
+![traefik-architecture](https://github.com/joederfmoura/sespmt-proxy/assets/149547286/d2059423-ee41-4630-861b-6f2eb83a4048)
+
 Traefik é um proxy reverso de código aberto que torna a publicação de seus serviços uma experiência fácil e divertida. Ele recebe solicitações em nome do seu sistema e descobre quais componentes são responsáveis ​​por tratá-las.
 
 O que diferencia o Traefik, além de suas inúmeras funcionalidades, é que ele descobre automaticamente a configuração certa para seus serviços. A mágica acontece quando o Traefik inspeciona sua infraestrutura, onde encontra informações relevantes e descobre qual serviço atende qual solicitação.
@@ -16,14 +18,10 @@ Com o Traefik, não há necessidade de manter e sincronizar um arquivo de config
 
 Em ambientes de contêineres, onde várias aplicações estão em execução e se comunicam dinamicamente, um proxy reverso desempenha um papel vital no gerenciamento eficiente do tráfego. Ele atua como um ponto de entrada único para as aplicações, direcionando solicitações para os contêineres apropriados com base em regras de roteamento dinâmicas. Isso simplifica a arquitetura de rede, facilita a escalabilidade horizontal e oferece uma camada adicional de segurança, ao mesmo tempo que permite a configuração e o monitoramento centralizados.
 
-## Configuração
-![traefik-architecture](https://github.com/joederfmoura/sespmt-proxy/assets/149547286/d2059423-ee41-4630-861b-6f2eb83a4048)
-
-HHHHHHHHHH
-
 ![traefik-cenario](https://github.com/joederfmoura/sespmt-proxy/assets/149547286/9a858600-6b49-4958-9fcd-89c053ba33da)
 
 
+## Configuração
 
 Para integrar o traefik ao projeto, foi criado o arquivo setup/traefik/traefik.toml contendo as configurações do traefik.
 
