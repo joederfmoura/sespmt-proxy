@@ -94,7 +94,7 @@ Ao inicializar os containers utilizando este `docker-compose.yml` cada serviço 
 | ------------------------ | ------------------------------------- | ----- |----|
 | Traefik Dashboard        | Traefik Proxy Reverso                 | 8080  |http://monitor.localhost|
 | ldap-admin               | Painel de Administração do LDAP       | 3390  |http://ldap-admin.localhost|
-| db-keycloak              | Banco de dados PostgreSQL do Keycloak | 35432 |http://alertmanager.localhost|
+| alertanager              |Ferramenta de alertas                  | 35432 |http://alertmanager.localhost|
 | grafana                  | Plataforma de métricas em gráficos    | 3000  |http://grafana.localhost|
 | promethues               | Ferramenta de Monitoramento           | 9090  |http://prometheus.localhost|
 | gerenciamento-roubo-web  | Protótipo funcional angular           | 8006  |http://gerenciamento-roubo.localhost|
