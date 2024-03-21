@@ -19,7 +19,9 @@ Em ambientes de contêineres, onde várias aplicações estão em execução e s
 ## Configuração
 ![traefik-architecture](https://github.com/joederfmoura/sespmt-proxy/assets/149547286/d2059423-ee41-4630-861b-6f2eb83a4048)
 
+HHHHHHHHHH
 
+![traefik-cenario](https://github.com/joederfmoura/sespmt-proxy/assets/149547286/9a858600-6b49-4958-9fcd-89c053ba33da)
 
 
 
